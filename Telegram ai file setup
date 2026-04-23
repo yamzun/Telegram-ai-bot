@@ -1,0 +1,6 @@
+telegram-ai-bot/
+├── bot_logic.py       (from https://gobii.ai/d/.eJwlyzsOgCAMANC7dLZJsUjByxj7wbjg4ma8u4Nvfw_sR4x7Ox1WsObqiQgX4Ya5eqD2UrGRpbzMmhIVmGBcHn_oFkK2C5pIwcyNUX1WVK65sBiJBLwfio4bRQ:1wFoWQ:q2paP6JF2_paatVVtaRyfen3k-YM-CYSbORnzD3YiJA/)
+├── Dockerfile         (from https://gobii.ai/d/.eJwlyzEOgzAMBdC7eK4lOyEGcxkU5yeIhS7dKu4OEm9_f6p7P3_bAVqpOQIqwmXOztOCzjFsYZemU0mhKkYfOr_ob8jqFgnCivGEXIJ9aGZN8IZqYgV03Xp1Gwc:1wFoWQ:hI1S20tIGhG2JsgBCcvW1PFXywnGU4vnocvmjRUoF-o/)
+├── main.py            (from https://gobii.ai/d/.eJwlyzsOgDAIANC7MEsC_YKXMbZQ41IXN-PdHXz7e2A_fN7babBCV2vGRJhrVExijm0UQaXOKYfGTAUWmJf5H_JoRNormmnEpFxQKAmKdwnVavGY4f0Ae_oaxQ:1wFoWQ:a5Jvrh4VxO5x0GBiUOYzwAPVRE_Wvxba15LbYyDhpmE/)
+├── render.yaml        (from https://gobii.ai/d/.eJwtyzEOgDAIAMC_MEsCQiv1M6aU1rjo4mb8u4u33wN17-e9HQErtBIeTIRpkYJq0dFHNizUWNPszJRhgvOK_gcapsaCjUxRU21oSQiryHDjkJkd3g94KxrL:1wFoWQ:eMvxlLiSfB0kidUkoo8SLVmaEDTOKfO1IJfCXm7fwS4/)
+└── requirements.txt   (from https://gobii.ai/d/.eJwlyzEOgCAMAMC_dLZJW6CCnzFgi3HBxc34d00cb7gb6u7jWg-DBbZizZgI0xwKxmyOrWvGQhvHJI2ZFCYYp_kfPnepyl-QjpHJsKkkDBLcnDXNXeB5AXLWGp4:1wFoWQ:8sv_GMeyYat_QOj7JMW1AskFcV7CTw_awvrpT_RhUd8/)
