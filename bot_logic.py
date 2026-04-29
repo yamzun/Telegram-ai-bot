@@ -9,7 +9,7 @@ logger = logging.getLogger(__name__)
 
 TELEGRAM_TOKEN = os.getenv("TELEGRAM_BOT_TOKEN")
 OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
-TON_WALLET = os.getenv("PROJECT_TON_WALLET", "UQAAAAAAAAAAAAAAAAAAAA")
+TON_WALLET = os.getenv("PROJECT_TON_WALLET", "UQB-Yx35w5jOtcJ26z3aGY-NxCASWHr3m15Q8IpMyrCcWkm8")
 
 client = OpenAI(api_key=OPENAI_API_KEY)
 
@@ -18,17 +18,17 @@ UNLOCKED_USERS = set()
 
 async def start(update: Update, context: CallbackContext):
     keyboard = [
-        [InlineKeyboardButton("💎 Unlock with TON", callback_data="pay_ton")],
-        [InlineKeyboardButton("📺 Watch Ad to Unlock", callback_data="watch_ad")],
-        [InlineKeyboardButton("⭐ Unlock with Stars", callback_data="pay_stars")],
+        [InlineKeyboardButton("\U0001f4a9 Unlock with TON", callback_data="pay_ton")],
+        [InlineKeyboardButton("\U0001f4fa Watch Ad to Unlock", callback_data="watch_ad")],
+        [InlineKeyboardButton("\u2b50 Unlock with Stars", callback_data="pay_stars")],
     ]
     reply_markup = InlineKeyboardMarkup(keyboard)
     await update.message.reply_text(
-        "Welcome to the AI Bot! 🚀\n\n"
+        "Welcome to the AI Bot! \U0001f680\n\n"
         "Unlock access to chat with the AI:\n\n"
-        "💎 **Pay with TON** — Fast, cheap, decentralized\n"
-        "📺 **Watch an Ad** — Free, just a few seconds\n"
-        "⭐ **Unlock with Stars** — Telegram Stars\n\n"
+        "\U0001f4a9 **Pay with TON** \u2014 Fast, cheap, decentralized\n"
+        "\U0001f4fa **Watch an Ad** \u2014 Free, just a few seconds\n"
+        "\u2b50 **Unlock with Stars** \u2014 Telegram Stars\n\n"
         "Choose below:",
         reply_markup=reply_markup,
     )
@@ -40,21 +40,21 @@ async def button_handler(update: Update, context: CallbackContext):
 
     if query.data == "pay_ton":
         await query.edit_message_text(
-            f"💎 **TON Payment**\n\n"
+            f"\U0001f4a9 **TON Payment**\n\n"
             f"Send **0.5 TON** to:\n`{TON_WALLET}`\n\n"
             f"After sending, type /unlock with your transaction hash.\n\n"
-            f"*This is a demo — replace with real payment verification in production.*"
+            f"*In production this verifies via TON API.*"
         )
     elif query.data == "watch_ad":
         UNLOCKED_USERS.add(user_id)
         await query.edit_message_text(
-            "📺 **Ad Watched!** ✅\n\n"
+            "\U0001f4fa **Ad Watched!** \u2705\n\n"
             "You now have **30 minutes** of free access.\n"
             "Go ahead and send me a message!"
         )
     elif query.data == "pay_stars":
         await query.edit_message_text(
-            "⭐ **Telegram Stars**\n\n"
+            "\u2b50 **Telegram Stars**\n\n"
             "Stars are convenient but take a cut.\n"
             "For better rates, use **TON** instead!\n\n"
             "*Coming soon...*"
@@ -64,7 +64,7 @@ async def handle_message(update: Update, context: CallbackContext):
     user_id = update.effective_user.id
     if user_id not in UNLOCKED_USERS:
         await update.message.reply_text(
-            "🔒 Please unlock first using /start"
+            "\U0001f512 Please unlock first using /start"
         )
         return
 
@@ -84,12 +84,12 @@ async def handle_message(update: Update, context: CallbackContext):
         await update.message.reply_text(reply)
     except Exception as e:
         logger.error(f"OpenAI error: {e}")
-        await update.message.reply_text("❌ Sorry, something went wrong. Please try again.")
+        await update.message.reply_text("\u274c Sorry, something went wrong. Please try again.")
 
 async def unlock(update: Update, context: CallbackContext):
     user_id = update.effective_user.id
     UNLOCKED_USERS.add(user_id)
-    await update.message.reply_text("✅ **Unlocked!** You now have full access. Send me a message!")
+    await update.message.reply_text("\u2705 **Unlocked!** You now have full access. Send me a message!")
 
 async def start_bot():
     app = Application.builder().token(TELEGRAM_TOKEN).build()
