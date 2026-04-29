@@ -1,17 +1,44 @@
 import os
 import logging
+import sys
 from telegram import Update, InlineKeyboardButton, InlineKeyboardMarkup
 from telegram.ext import Application, CommandHandler, CallbackQueryHandler, MessageHandler, filters, CallbackContext
-from openai import OpenAI
 
-logging.basicConfig(format="%(asctime)s - %(name)s - %(levelname)s - %(message)s", level=logging.INFO)
+logging.basicConfig(
+    format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
+    level=logging.INFO,
+    stream=sys.stdout
+)
 logger = logging.getLogger(__name__)
 
+# ── Validate env vars on startup ──────────────────────────────────────────
 TELEGRAM_TOKEN = os.getenv("TELEGRAM_BOT_TOKEN")
 OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
 TON_WALLET = os.getenv("PROJECT_TON_WALLET", "UQB-Yx35w5jOtcJ26z3aGY-NxCASWHr3m15Q8IpMyrCcWkm8")
 
-client = OpenAI(api_key=OPENAI_API_KEY)
+missing = []
+if not TELEGRAM_TOKEN:
+    missing.append("TELEGRAM_BOT_TOKEN")
+if not OPENAI_API_KEY:
+    missing.append("OPENAI_API_KEY")
+
+if missing:
+    logger.error(f"FATAL: Missing env vars: {', '.join(missing)}")
+    logger.error("Set them in Render Dashboard -> Environment -> Add Variable")
+    sys.exit(1)
+
+logger.info(f"TELEGRAM_BOT_TOKEN: set ({TELEGRAM_TOKEN[:8]}...)")
+logger.info(f"OPENAI_API_KEY: set ({OPENAI_API_KEY[:8]}...)")
+logger.info(f"PROJECT_TON_WALLET: {TON_WALLET[:12]}...")
+
+# ── Lazy init (won't crash if import-time issues) ────────────────────────
+_client = None
+def get_openai_client():
+    global _client
+    if _client is None:
+        from openai import OpenAI
+        _client = OpenAI(api_key=OPENAI_API_KEY)
+    return _client
 
 # Payment / Ads gating
 UNLOCKED_USERS = set()
@@ -72,6 +99,7 @@ async def handle_message(update: Update, context: CallbackContext):
     await update.message.chat.send_action(action="typing")
 
     try:
+        client = get_openai_client()
         response = client.chat.completions.create(
             model="gpt-4o-mini",
             messages=[
