@@ -1,0 +1,11 @@
+services:
+  - type: web
+    name: ai-telegram-bot
+    env: docker
+    dockerfilePath: Dockerfile
+    autoDeploy: true
+    envVars:
+      - key: TELEGRAM_BOT_TOKEN
+        sync: false
+      - key: OPENAI_API_KEY
+        sync: false
