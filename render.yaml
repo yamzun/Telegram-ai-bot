@@ -1,5 +1,5 @@
 services:
-  - type: web
+  - type: worker
     name: ai-telegram-bot
     env: docker
     dockerfilePath: Dockerfile
@@ -8,4 +8,6 @@ services:
       - key: TELEGRAM_BOT_TOKEN
         sync: false
       - key: OPENAI_API_KEY
+        sync: false
+      - key: PROJECT_TON_WALLET
         sync: false
